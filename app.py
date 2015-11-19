@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect
+import search
 app = Flask(__name__)
 
 @app.route("/")
@@ -9,7 +10,8 @@ def home():
 def answer():
     if request.form.has_key("query") and request.form["query"] != "":
         query = request.form["query"]
-        return render_template("answer.html")
+        answer = search.getAnswer(query)
+        return render_template("answer.html", query = query, answer = answer)
     else:
         return redirect("/")
 
