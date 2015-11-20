@@ -1,9 +1,30 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Search</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-Question:
-<br>
-<form method="POST" action="answer">
-  <input type="text" name="query">
-  <br>
-  <input type="submit" name="submit" value="Submit">
-</form>
+<br><br>
+
+<div class="container">
+  <h2>Search</h2>
+  <form role="form">
+    <div class="form-group">
+      <label for="comment">Enter search here:</label>
+      <textarea class="form-control" rows="1" id="comment"></textarea>
+    </div>
+  </form>
+</div>
+
+<br><br>
+
+  <input type="submit" class="btn btn-info btn-block" value="Submit Button">
+
+</body>
+</html>
