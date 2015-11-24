@@ -11,7 +11,13 @@ def getAnswer(query):
         The answer to the question as a string.
     """
     r = google.search(query, num = 10, start = 0, stop = 10)
-    l = []
+    raw = ""
     for result in r:
-        l.append(result)
-    return l
+        try:
+            u = urllib2.urlopen(result)
+            page = u.read()
+            soup = bs4.BeautifulSoup(page, "html")
+            raw += soup.get_text()
+        except:
+            pass
+    return raw
