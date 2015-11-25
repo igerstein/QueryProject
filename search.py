@@ -50,6 +50,8 @@ def findWho(query):
         The answer to the question as a string.
     """
     raw = getRaw(query)
+    names = re.findall("[A-Z][a-z]+ [A-Z][a-z]+", raw)
+    print names
     return ""
 
 def findWhen(query):
