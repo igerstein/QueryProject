@@ -65,7 +65,11 @@ def findWhen(query):
         The answer to the question as a string.
     """
     raw = getRaw(query)
-    return ""
+    dates = getDates(raw)
+    answer = mostCommon(dates)
+    if answer.find("/") != -1:
+        answer = convert(answer)
+    return answer
 
 def getNames(text):
     """
@@ -93,6 +97,32 @@ def getNames(text):
         names.append(r[0])
     return names
 
+def getDates(text):
+    """
+    Gets a list of dates from a block of text.
+
+    Args:
+        text: The text to find the dates from as a string.
+
+    Returns:
+        A list of dates in various date formats.
+
+    >>> getDates("January 1, 2015 something January 01, 2015 something December 31, 2015")
+    ['January 1, 2015', 'January 01, 2015', 'December 31, 2015']
+    >>> getDates("1/1/2015 something 01/01/2015 something 12/31/2015")
+    ['1/1/2015', '01/01/2015', '12/31/2015']
+    """
+    exp = "((January|February|March|April|May|June|July|August|September|October|November|December) ([0-2]?[0-9]|3[01]), [0-9]+)"
+    result = re.findall(exp, text)
+    dates = []
+    for r in result:
+        dates.append(r[0])
+    exp = "(((1[0-2])|(0?[1-9]))\/(3[01]|([0-2]?[0-9]))\/[0-9]+)"
+    result = re.findall(exp, text)
+    for r in result:
+        dates.append(r[0])
+    return dates
+
 def mostCommon(L):
     """
     Returns the most common element in a list.
@@ -115,6 +145,23 @@ def mostCommon(L):
             maxCount = count[item]
             maxItem = item
     return maxItem
+
+def convert(date):
+    """
+    Converts a date from mm/dd/yyyy format to month dd, yyyy format.
+
+    Args:
+        date: The date to convert as a string.
+
+    Returns:
+        The converted date as a string.
+    """
+    month = date[:date.find("/")]
+    date = date[date.find("/") + 1:]
+    day = date[:date.find("/")]
+    year = date[date.find("/") + 1:]
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    return months[int(month) - 1] + " " + str(int(day)) + ", " + year
     
 if __name__ == "__main__":
     import doctest
